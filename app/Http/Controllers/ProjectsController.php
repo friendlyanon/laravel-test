@@ -239,10 +239,9 @@ class ProjectsController extends Controller {
         $emailsToSend = [];
         foreach ($assignees as $assignee) {
             $emailsToSend[] = new SendProjectEmail($assignee['email'], 'added', $projectName);
-            $assigneeData = array_slice($assignee, 0);
-            $assigneeData['assigned_to'] = $id;
-            Assignee::create($assigneeData);
+            $assignee['assigned_to'] = $id;
         }
+        Assignee::insert($assignees);
 
         foreach ($emailsToSend as $email) {
             dispatch($email);
