@@ -1,0 +1,33 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+a.current-project-filter {
+    text-decoration: underline;
+}
+
+.disabled_deleting {
+    pointer-events: none;
+}
+
+.success_message {
+    color: green;
+}
+
+.failure_message {
+    color: red;
+}
+
+.delete_form {
+    display: inline-block;
+}
+
+.project_buttons {
+    display: block;
+    margin-bottom: 0.7rem;
+}
