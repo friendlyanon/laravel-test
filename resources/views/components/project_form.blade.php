@@ -42,6 +42,25 @@
             </noscript>
             <textarea id="assignees" class="form-control" name="assignees"
             >{{ trim($assignees) }}</textarea>
+            <div style="display: none;">
+                <p>{{ __('To delete an assignee, just leave their row empty.') }}</p>
+                <table id="assignee_table" class="table">
+                    <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <button class="btn btn-primary">{{ __('Add new') }}</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 

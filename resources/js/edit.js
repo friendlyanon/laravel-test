@@ -4,27 +4,8 @@ $("#state").addClass("selectpicker");
 
 const assignees = $("#assignees");
 assignees.hide();
+assignees.next().show();
 $("label[for='assignees']").removeAttr("for");
-
-assignees.after(`
-<p>To delete an assignee, just leave their row empty.</p>
-<table id="assignee_table" class="table">
-    <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3">
-                <button class="btn btn-primary">Add new</button>
-            </td>
-        </tr>
-    </tfoot>
-</table>
-`);
 
 const makeRow = function() {
   return `
@@ -58,9 +39,8 @@ table.find("button").on("click", function(event) {
   }
 }
 
-document.getElementById("edit_form").addEventListener("submit", function(event) {
+$("#edit_form").one("submit", function(event) {
   event.preventDefault();
-  event.stopImmediatePropagation();
   const names = body.find("input.name-field");
   const emails = body.find("input.email-field");
   const result = Array.from(
@@ -69,5 +49,5 @@ document.getElementById("edit_form").addEventListener("submit", function(event) 
   );
   assignees.val(result.join("\n\n"));
   this.submit();
-}, { once: true });
+});
 
