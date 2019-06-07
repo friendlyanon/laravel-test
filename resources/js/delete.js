@@ -8,6 +8,10 @@ const state = {
 const modal = $("#delete_modal");
 const form = $("#delete_form");
 
+const [successMessage, deletingMessage] = ["success", "deleting"].map(
+    clazz => $(`#delete_modal_localizations > .${clazz}`).text()
+);
+
 const resetCardAndState = function () {
     const card = state.button.closest(".card");
     card.find("a").removeClass("disabled_deleting");
@@ -21,7 +25,7 @@ const success = function () {
     const {button} = state;
     const card = resetCardAndState();
     const message = $(document.createElement("span"));
-    message.addClass("success_message").text("Success");
+    message.addClass("success_message").text(successMessage);
     button.next().replaceWith(message);
     if (form.data("show")) {
         window.location = form.data("show");
@@ -72,7 +76,7 @@ $("#delete_button").on("click", function () {
     button.nextAll().remove();
     button.after(`
 <div class="spinner-grow text-danger" role="status">
-  <span class="sr-only">Deleting...</span>
+  <span class="sr-only">${deletingMessage}</span>
 </div>`,
     );
     button.closest(".card").find("a").addClass("disabled_deleting");

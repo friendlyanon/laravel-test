@@ -1,5 +1,9 @@
 <div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Title"
      aria-hidden="true">
+    <div id="delete_modal_localizations">
+        <span class="success">{{ __('Success') }}</span>
+        <span class="deleting">{{ __('project_delete.deleting') }}</span>
+    </div>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
