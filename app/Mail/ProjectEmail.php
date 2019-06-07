@@ -6,7 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ProjectEmail extends Mailable {
+class ProjectEmail extends Mailable
+{
     use Queueable, SerializesModels;
 
     protected $extra;
@@ -20,7 +21,8 @@ class ProjectEmail extends Mailable {
      * @param string $projectName
      * @param array $extra
      */
-    public function __construct($action, $projectName, $extra = null) {
+    public function __construct($action, $projectName, $extra = null)
+    {
         $this->extra = $extra;
         $this->action = $action;
         $this->projectName = $projectName;
@@ -31,7 +33,8 @@ class ProjectEmail extends Mailable {
      *
      * @return $this
      */
-    public function build() {
+    public function build()
+    {
         return $this->view('email.email')->with(
             [
                 'extra' => $this->extra,

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'ProjectsController@index')->name('projects.index');
+
 Route::get('/project/show/{id}', 'ProjectsController@show')->name('projects.show');
 Route::get('/project/edit/{id}', 'ProjectsController@showEditForm')->name('projects.edit_form');
 

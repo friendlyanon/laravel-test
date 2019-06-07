@@ -10,7 +10,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendProjectEmail implements ShouldQueue {
+class SendProjectEmail implements ShouldQueue
+{
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $extra;
@@ -26,7 +27,8 @@ class SendProjectEmail implements ShouldQueue {
      * @param string $projectName
      * @param array $extra
      */
-    public function __construct($email, $action, $projectName, $extra = null) {
+    public function __construct($email, $action, $projectName, $extra = null)
+    {
         $this->extra = $extra;
         $this->email = $email;
         $this->action = $action;
@@ -38,7 +40,8 @@ class SendProjectEmail implements ShouldQueue {
      *
      * @return void
      */
-    public function handle() {
+    public function handle()
+    {
         $email = new ProjectEmail($this->action, $this->projectName, $this->extra);
 
         Mail::to($this->email)->send($email);

@@ -15,7 +15,7 @@
     @component('components.container')
         @component('components.card')
             @slot('header')
-                {{ __('Editing') }} {{ $project->name }}
+                {{ __('project_edit.title', ['name' => $project->name]) }}
             @endslot
             @component('components.project_form', [
                 'actionRoute' => route('projects.edit', ['id' => $project->id]),
@@ -27,26 +27,24 @@
                     <input type="hidden" name="id" value="{{ $project->id }}"/>
                 @endslot
                 @slot('states')
-                    @foreach(\App\Project::states as $state)
+                    @foreach(\App\Project::STATES as $state)
                         <option value="{{ $state }}"
-                                @if($project->state === $state)
+                            @if($project->state === $state)
                                 selected
                             @endif>
-                            {{ Lang::get('project_filter.' . $state) }}
+                            {{ __('project_filter.' . $state) }}
                         </option>
                     @endforeach
                 @endslot
                 @slot('assignees')
                     @php($first = true)
-                    @foreach($project->getAssignedUsers() as $assignee)
-                        {{
+                    @foreach($project->getAssignedUsers() as $assignee){{
                             $first ? ($first = false) || '' : "\n\n"
                         }}{{
                             $assignee->name
                         }}{{ "\n" }}{{
                             $assignee->email
-                        }}
-                    @endforeach
+                    }}@endforeach
                 @endslot
             @endcomponent
         @endcomponent

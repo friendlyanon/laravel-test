@@ -6,8 +6,8 @@
 
 @section('content')
     @auth
-        @component('components.delete_modal', ['id' => 'delete_modal', 'title' => __('Are you sure?')])
-            {{ __('Deletion is permanent and people\'s assignment will also be removed.') }}
+        @component('components.delete_modal', ['id' => 'delete_modal', 'title' => __('project_delete.confirm')])
+            {{ __('project_delete.delete_confirm_message') }}
         @endcomponent
         <form id="delete_form" method="POST" action="{{ route('projects.delete') }}"
               data-show="{{ route('projects.index') }}">
@@ -24,7 +24,7 @@
                 <div class="project_buttons">
                     <a href="{{ route('projects.edit_form', ['id' => $project->id]) }}"
                        class="btn btn-success">
-                        {{ __('Edit') }}
+                        {{ __('project_show.edit') }}
                     </a>
                     <form method="POST"
                           action="{{ route('projects.delete_nojs', ['id' => $project->id]) }}"
@@ -32,20 +32,20 @@
                         @csrf
                         <button type="submit" class="btn btn-danger delete-modal"
                                 data-id="{{ $project->id }}">
-                            {{ __('Delete') }}
+                            {{ __('project_show.delete') }}
                         </button>
                     </form>
                 </div>
             @endauth
-            <h4>{{ __('ProjectEmail') }}: {{ Lang::get('project_filter.' . $project->state) }}</h4>
-            <h5>{{ __('Description') }}:</h5>
+            <h4>{{ __('ProjectEmail') }}: {{ __('project_filter.' . $project->state) }}</h4>
+            <h5>{{ __('project_show.description_heading') }}:</h5>
             <p>{{ $project->description }}</p>
-            <h5>{{ __('Assignees') }}:</h5>
+            <h5>{{ __('project_show.assignees_heading') }}:</h5>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>{{ __('project_show.name') }}</th>
+                    <th>{{ __('project_show.email') }}</th>
                 </tr>
                 </thead>
                 <tbody>

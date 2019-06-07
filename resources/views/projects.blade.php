@@ -6,8 +6,8 @@
 
 @section('content')
     @auth
-        @component('components.delete_modal', ['id' => 'delete_modal', 'title' => __('Are you sure?')])
-            {{ __('Deletion is permanent and people\'s assignment will also be removed.') }}
+        @component('components.delete_modal', ['id' => 'delete_modal', 'title' => __('project_delete.confirm')])
+            {{ __('project_delete.delete_confirm_message') }}
         @endcomponent
         <form id="delete_form" method="POST" action="{{ route('projects.delete') }}">
             <input type="hidden" name="id" value=""/>
@@ -24,14 +24,14 @@
                 <p>
                     <a href="{{ route('projects.create_form') }}"
                        class="btn btn-primary">
-                        {{ __('Create project') }}
+                        {{ __('project_create.create_button') }}
                     </a>
                 </p>
             @endauth
             <p>
-                {{ __('Filter: ') }}
+                {{ __('Filter') }}:
                 @php($first = true)
-                @foreach(\App\Project::states as $state)
+                @foreach(\App\Project::STATES as $state)
                     @if($first)
                         @php($first = false)
                     @else
@@ -40,12 +40,12 @@
                     @php($state_class = request()->has('state') && request('state') === $state ?
                             'current-project-filter' : '')
                     <a href="?state={{ $state }}" class="{{ $state_class }}"
-                    >{{ Lang::get('project_filter.' . $state) }}</a>
+                    >{{ __('project_filter.' . $state) }}</a>
                 @endforeach
                 |
                 <a href="{{ route('projects.index') }}"
                    @if(!request()->has('state')) class="current-project-filter" @endif
-                >{{ Lang::get('project_filter.all') }}</a>
+                >{{ __('project_filter.all') }}</a>
             </p>
 
             {{ $projects->links() }}

@@ -4,11 +4,11 @@
             {{ $project->name }}
         </a>
     @endslot
-    <h5 class="card-title">{{ __('Project state') }}: {{ Lang::get('project_filter.' . $project->state) }}</h5>
+    <h5 class="card-title">{{ __('Project state') }}: {{ __('project_filter.' . $project->state) }}</h5>
 
     <p>
         @php($userCount = $project->getAssignedUserCount())
-        {{ __('Assigned') }}: {{ $userCount }} {{ $userCount === 1 ? 'person' : 'people' }}
+        {{ trans_choice('project_show.assigned', $userCount, ['count' => $userCount]) }}
     </p>
 
     @auth

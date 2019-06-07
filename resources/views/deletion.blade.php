@@ -8,6 +8,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 <body>
-    Successfully deleted project #{{ $project->id }} ({{ $project->name }})
+{{ __('project_delete.success_html', ['id' => $project->id, 'name' => $project->name]) }}
 </body>
 </html>

@@ -15,7 +15,7 @@
     @component('components.container')
         @component('components.card')
             @slot('header')
-                {{ __('Creating project') }}
+                {{ __('project_create.title') }}
             @endslot
             @component('components.project_form', [
                 'actionRoute' => route('projects.create'),
@@ -26,9 +26,9 @@
                 @slot('id')
                 @endslot
                 @slot('states')
-                    @foreach(\App\Project::states as $state)
+                    @foreach(\App\Project::STATES as $state)
                         <option value="{{ $state }}">
-                            {{ Lang::get('project_filter.' . $state) }}
+                            {{ __('project_filter.' . $state) }}
                         </option>
                     @endforeach
                 @endslot

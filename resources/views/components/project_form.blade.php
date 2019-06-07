@@ -46,18 +46,18 @@
                 <p>{{ __('To delete an assignee, just leave their row empty.') }}</p>
                 <table id="assignee_table" class="table">
                     <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
                     </thead>
                     <tbody></tbody>
                     <tfoot>
-                        <tr>
-                            <td colspan="3">
-                                <button class="btn btn-primary">{{ __('Add new') }}</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button class="btn btn-primary">{{ __('Add new') }}</button>
+                        </td>
+                    </tr>
                     </tfoot>
                 </table>
             </div>
