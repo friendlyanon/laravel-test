@@ -10,7 +10,7 @@ class Assignee extends Model
     protected $fillable = [
         'name',
         'email',
-        'assigned_to',
+        'project_id',
     ];
 
     protected $hidden = [];
@@ -26,7 +26,7 @@ class Assignee extends Model
      */
     public function scopeEmail($query, $id)
     {
-        return $query->select('email')->where('assigned_to', $id);
+        return $query->select('email')->where('project_id', $id);
     }
 
     public function project()

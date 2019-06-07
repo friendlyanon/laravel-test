@@ -29,7 +29,7 @@ class Project extends Model
      */
     public function assignees()
     {
-        return $this->hasMany('App\Assignee', 'assigned_to');
+        return $this->hasMany('App\Assignee', 'project_id');
     }
 
     /**
@@ -37,11 +37,11 @@ class Project extends Model
      */
     public function getAssignedUserCount()
     {
-        return Assignee::where('assigned_to', $this->id)->count();
+        return Assignee::where('project_id', $this->id)->count();
     }
 
     public function getAssignedUsers()
     {
-        return Assignee::select('name', 'email')->where('assigned_to', $this->id)->get();
+        return Assignee::select('name', 'email')->where('project_id', $this->id)->get();
     }
 }

@@ -86,12 +86,12 @@ class ProjectsController extends Controller
      */
     protected function deleteProject($id)
     {
-        $assignees = Assignee::where('assigned_to', $id)->get();
+        $assignees = Assignee::where('project_id', $id)->get();
         $projectName = Project::select('name')->where('id', $id)->firstOrFail();
         foreach ($assignees as $assignee) {
             dispatch(new SendProjectEmail($assignee->email, 'deleted', $projectName));
         }
-        Assignee::where('assigned_to', $id)->delete();
+        Assignee::where('project_id', $id)->delete();
         Project::where('id', $id)->delete();
     }
 
@@ -193,7 +193,7 @@ class ProjectsController extends Controller
             $addedAssignees[] = [
                 'name' => $getName($addedEmail),
                 'email' => $addedEmail,
-                'assigned_to' => $id,
+                'project_id' => $id,
             ];
         }
         Assignee::insert($addedAssignees);
@@ -283,7 +283,7 @@ class ProjectsController extends Controller
         $emailsToSend = [];
         foreach ($assignees as $assignee) {
             $emailsToSend[] = new SendProjectEmail($assignee['email'], 'added', $projectName);
-            $assignee['assigned_to'] = $id;
+            $assignee['project_id'] = $id;
         }
         Assignee::insert($assignees);
 

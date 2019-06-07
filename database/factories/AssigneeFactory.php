@@ -1,9 +1,10 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+/* @var $factory Factory */
 
 use App\Assignee;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(
     Assignee::class,
@@ -11,7 +12,7 @@ $factory->define(
         return [
             'name' => $faker->name,
             'email' => $faker->unique()->safeEmail,
-            'assigned_to' => null,
+            'project_id' => null,
         ];
     }
 );
