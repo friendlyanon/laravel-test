@@ -211,7 +211,7 @@ class ProjectsController extends Controller
             return redirect(route('projects.show', ['id' => $id]));
         }
         $assignees = $this->getValidatedAssignees($id);
-        $map = $this->createEmailMasks($assignees, $id);
+        $emailMasks = $this->createEmailMasks($assignees, $id);
         $projectName = request('name');
 
         $emailsToSend = [];
@@ -219,7 +219,7 @@ class ProjectsController extends Controller
         $removed = [];
         $unchanged = [];
         $varMap = [1 => 'removed', 2 => 'added', 3 => 'unchanged'];
-        foreach ($map as $email => $mask) {
+        foreach ($emailMasks as $email => $mask) {
             if ($mask !== 3) {
                 $emailsToSend[] = new SendProjectEmail($email, $varMap[$mask], $projectName);
             }
