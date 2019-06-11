@@ -179,7 +179,7 @@ class ProjectsController extends Controller
         $assigneesInDatabase = collect(Assignee::nameAndEmail($id)->get());
 
         $diffEmails = function ($a, $b) {
-            return $a['email'] === $b['email'] ? 0 : 1;
+            return strcmp($a['email'], $b['email']);
         };
         $assigneesAdded = $assigneesInDatabase->diffUsing($assigneesInRequest, $diffEmails);
         $assigneesRemoved = $assigneesInRequest->diffUsing($assigneesInDatabase, $diffEmails);
@@ -191,8 +191,8 @@ class ProjectsController extends Controller
         }));
         if ($project->isDirty()) {
             $dirty = $project->getDirty();
-            $assigneesInDatabase->diffUsing($assigneesInRequest, function ($a, $b) {
-                return $a['email'] === $b['email'] ? 1 : 0;
+            $assigneesInDatabase->filter(function ($assignee) use ($assigneesInRequest) {
+                return $assigneesInRequest->contains('email', '=', $assignee['email']);
             })->each(function ($assignee) use ($projectName, $dirty) {
                 $this->dispatch(new SendProjectEmail($assignee['name'], 'changed', $projectName, $dirty));
             });
