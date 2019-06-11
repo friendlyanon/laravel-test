@@ -24,9 +24,9 @@ class Assignee extends Model
      * @param string $id
      * @return Builder
      */
-    public function scopeEmail($query, $id)
+    public function scopeNameAndEmail($query, $id)
     {
-        return $query->select('email')->where('project_id', $id);
+        return $query->select(['email', 'name'])->where('project_id', $id);
     }
 
     public function project()
