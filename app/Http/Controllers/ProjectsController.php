@@ -191,10 +191,12 @@ class ProjectsController extends Controller
         }));
         if ($project->isDirty()) {
             $dirty = $project->getDirty();
-            $assigneesInDatabase->filter(function ($assignee) use ($assigneesInRequest) {
-                return $assigneesInRequest->contains('email', '=', $assignee['email']);
-            })->each(function ($assignee) use ($projectName, $dirty) {
-                $this->dispatch(new SendProjectEmail($assignee['name'], 'changed', $projectName, $dirty));
+            $assigneesInDatabase->flatMap(function ($assignee) use ($assigneesInRequest) {
+                return $assigneesInRequest->contains('email', '=', $assignee['email']) ?
+                    [$assignee['email']] :
+                    [];
+            })->each(function ($assigneeEmail) use ($projectName, $dirty) {
+                $this->dispatch(new SendProjectEmail($assigneeEmail, 'changed', $projectName, $dirty));
             });
             $project->save();
         }
